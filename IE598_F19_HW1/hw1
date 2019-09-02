@@ -28,6 +28,8 @@ scaler = preprocessing.StandardScaler().fit(X_train)
 X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
+#  Make sure the notebooks shows plots at first run a cell
+%matplotlib inline
 import matplotlib.pyplot as plt
 colors = ['red', 'greenyellow', 'blue']
 #it doesnt like "xrange" changed to "range"
