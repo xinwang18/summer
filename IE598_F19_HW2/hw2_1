@@ -1,0 +1,54 @@
+import pandas as pd
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+# Read in file
+df = pd.read_csv('Treasury.csv')
+df=df.iloc[:,2:]
+df.head()
+# Create feature and target arrays
+y = df['squeeze'].values
+X = df.drop('squeeze', axis=1).values
+#print('Class labels:', np.unique(y))
+# Split into training and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=1, stratify=y)
+
+
+# Create a k-NN classifier with 7 neighbors: knn
+#knn = KNeighborsClassifier(n_neighbors=1)
+# Fit the classifier to the training data
+#knn.fit(X_train,y_train)
+# Print the accuracy
+#print(knn.score(X_test, y_test))
+
+
+neighbors = np.arange(1, 26)
+test_accuracy = []
+for k in (neighbors):
+    knn = KNeighborsClassifier(n_neighbors=k)
+    # Fit the classifier to the training data
+    knn.fit(X_train,y_train)
+    y_pred = knn.predict(X_test)
+    test_accuracy.append(accuracy_score(y_test, y_pred))
+
+
+plt.title('k-NN: Varying Number of Neighbors')
+plt.plot(neighbors, test_accuracy, label = 'Testing Accuracy')
+plt.legend()
+plt.xlabel('Number of Neighbors')
+plt.ylabel('Accuracy')
+plt.show()
+
+
+for i in (neighbors-1):
+    print("Testing accuracy is ", float(test_accuracy[i]), " when k = ", i+1)
+        
+
+print("\nMy name is Xin Wang")
+print("My NetID is: xinw9")
+print("I hereby certify that I have read the University policy on Academic Integrity and that I am not in violation.")
+
