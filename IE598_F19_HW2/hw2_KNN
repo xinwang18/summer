@@ -43,10 +43,15 @@ plt.xlabel('Number of Neighbors')
 plt.ylabel('Accuracy')
 plt.show()
 
-
+best_a = 0
+best_k = 0
 for i in (neighbors-1):
-    print("Testing accuracy is ", float(test_accuracy[i]), " when k = ", i+1)
-        
+    if(test_accuracy[i] > best_a):
+        best_a = test_accuracy[i]
+        best_k = i    
+
+print("Best testing accuracy is ", best_a, " when k = ", best_k+1)
+
 
 print("\nMy name is Xin Wang")
 print("My NetID is: xinw9")
