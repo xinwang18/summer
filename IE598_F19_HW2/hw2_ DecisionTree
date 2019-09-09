@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+# Read in file
+df = pd.read_csv('Treasury.csv')
+df=df.iloc[:,2:]
+df.head()
+# Create feature and target arrays
+y = df['squeeze'].values
+X = df.drop('squeeze', axis=1).values
+#print('Class labels:', np.unique(y))
+# Split into training and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=1, stratify=y)
+
+# Instantiate dt
+dt = DecisionTreeClassifier(max_depth=6, random_state=1)
+# Fit dt to the training set
+dt.fit(X_train, y_train)
+# Predict test set labels
+y_pred = dt.predict(X_test)
+# Compute test set accuracy
+acc = accuracy_score(y_test, y_pred)
+print("From DecisionTree: Test set accuracy: {:.2f}".format(acc))
+
+
+print("\nMy name is Xin Wang")
+print("My NetID is: xinw9")
+print("I hereby certify that I have read the University policy on Academic Integrity and that I am not in violation.")
+
