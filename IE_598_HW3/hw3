@@ -1,0 +1,100 @@
+import pandas as pd
+import sys
+import numpy as np
+
+
+# Read in file
+df = pd.read_csv('HY_Universe_corporate bond.csv')
+df.head()
+df.tail()
+
+df = np.array(df)
+ROW = df.shape[0]
+COL = df.shape[1]
+print("Number of Rows of Data = " + str(ROW))
+print("Number of Columns of Data = " + str(COL) + '\n')
+
+
+
+# get all data in col 10: Issued Amount
+df = np.delete(df,0,0)
+data_ten = df[:,10]
+mean_ten = np.mean(data_ten)
+std_ten = np.std(data_ten)
+
+print("Mean of Issued Amount is " + str(mean_ten))
+print("Standard Deviation of Issued Amount is " + str(std_ten))
+
+percent = []
+for i in range (5):
+    percent.append(np.percentile(data_ten, i*(100)/4))
+print("4 Equal Percentiles are "+ str(percent) + '\n')
+
+
+
+# get all data in col 21: n_trades
+df = np.delete(df,0,0)
+data_21 = df[:,21]
+mean_21 = np.mean(data_ten)
+std_21 = np.std(data_ten)
+
+print("Mean of n_trades is " + str(mean_21))
+print("Standard Deviation of n_trades is " + str(std_21))
+
+percent = []
+for i in range (11):
+    percent.append(np.percentile(data_21, i*(100)/10))
+print("10 Equal Percentiles are "+ str(percent) + '\n')
+
+
+# plot col 10th / 21th:
+import matplotlib.pyplot as plt
+
+def ecdf(data):
+    """Compute ECDF for a one-dimensional array of measurements."""
+    # Number of data points: n
+    n = len(data)
+    # x-data for the ECDF: x
+    x = np.sort(data)
+    # y-data for the ECDF: y
+    y = np.arange(1, len(x)+1) / len(x)
+    return x, y
+
+# Compute ECDF for versicolor data: x_21, y_21
+x_21, y_21 = ecdf(data_21)
+
+# Generate plot
+_ = plt.plot(x_21,y_21,marker='.',linestyle='none')
+
+# Label the axes
+_ = plt.xlabel('n_trades')
+_ = plt.ylabel('ECDF')
+
+# Display the plot
+plt.show()
+
+var_21 = np.var(data_21)
+print("Variance of n_trades is " + str(var_21))
+
+# Compute ECDF for versicolor data: x_ten, y_ten
+x_ten, y_ten = ecdf(data_ten)
+
+# Generate plot
+_ = plt.plot(x_ten,y_ten,marker='.',linestyle='none', color='red')
+
+# Label the axes
+_ = plt.xlabel('Issued Amount')
+_ = plt.ylabel('ECDF')
+
+# Display the plot
+plt.show()
+
+var_ten = np.var(data_ten)
+print("Variance of Issued Amount is " + str(var_ten))
+
+
+print("My name is Xin Wang")
+print("My NetID is: xinw9")
+print("I hereby certify that I have read the University policy on Academic Integrity and that I am not in violation.")
+
+
