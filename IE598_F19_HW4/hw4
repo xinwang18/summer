@@ -321,3 +321,11 @@ for alpha in alpha_space:
     # Find best alpha
     if(np.mean(lasso_cv_scores) == max(lasso_scores)):
         print("Best alpha for Lasso is: ", alpha)
+
+
+
+print("My name is Xin Wang")
+print("My NetID is: xinw9")
+print("I hereby certify that I have read the University policy on Academic Integrity and that I am not in violation.")
+
+
